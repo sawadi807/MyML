@@ -11,7 +11,7 @@ Naver Cloud, 글로벌공학교육센터, 공학교육혁신센터에서 후원�
 해당 모델의 구조는 generator와 discriminator로 구분되어져 있다. 입력 데이터로는 이미지와 해당 이미지에 대한 텍스트 정보를 clip 알고리즘을 통해 추출한 특징 정보이다. 
 Generator는 입력 받은 데이터를 통해 (64by64), (128by128), (256by256)의 해상도를 가진 이미지를 순차적으로 출력하며 각각의 이미지는 Discriminator의 입력으로 들어갈 수 있게 한다. 이때 Generator는 텍스트에 해당하는 이미지를 학습해 나가며 점점 더 실제와 같은 이미지를 학습할 수 있게 된다.
 Discriminator는 입력으로 텍스트와 해당 텍스트로 Generator가 생성한 Fake image 그리고 Real image를 받게 된다. 그리고 조건의 여부에 따라 real image와 fake image의 유사정도를 판별하게 된다. 이를 통해 Discriminator는 점점 실제와 같아지는 Fake image로 인해 loss는 커진다는 특징이 있다. 해당 코드에서는 조건이 없을 때를 학습했다. 
-![image](https://github.com/sawadi807/MyML/assets/139100722/40088a07-2bb6-4db4-8df9-274a2faab0d5)
+![image](https://github.com/sawadi807/MyML/assets/139100722/bb39ebba-98b7-4f0f-a01d-9a9049974072)
 
 
 2) 코드 설명
