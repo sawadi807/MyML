@@ -11,6 +11,7 @@
 한편, 복잡한 DNN은 스마트폰과 같은 mobile device에서 수행하기에 computing power가 부족할 수 있다. 그래서 일반적으로 mobile devcie에서 input data를 server로 전송하여 server에서 DNN 추론을 수행하는 클라우드 컴퓨팅 방법이 사용된다. 하지만 피부암 진단 DNN과 같은 의료 분야의 인공지능은 input data로 환자의 개인정보나 환부의 사진이 요구되기 때문에 전통적인 클라우드 컴퓨팅 방법은 data 유출 문제에 취약할 수 있다. 따라서 전통적인 cloud의 보안적 한계를 극복하는 피부암 진단 DNN 모델의 구현이 필요하다.
 
 
+
 2) 프로젝트 진행 내용
 
 ① 데이터 수집 및 전처리
@@ -38,9 +39,11 @@
   - socket_server_SC.py 코드는 client의 TCP 연결을 수용하여 serialized data를 받아 unserialize하여 본래의 numpy array로 복구한다.
 
 
+
 3) 모델 구조
 
 전체적인 모델 구조는 아래와 같다. 이 과정에서 InceptionResNetV2의 중간 부분을 분할하여 head와 tail로 분리해 split computing을 진행하였다.
+
 ![image](https://github.com/sawadi807/MyML/assets/139100722/9b5975b0-4624-483b-95bd-6c60f14bde19)
 
 
