@@ -89,7 +89,8 @@ train.py코드는 GAN을 활용해서 이미지를 생성할 수 있는 모델�
 ![image](https://github.com/sawadi807/MyML/assets/139100722/0e44cb57-7d8e-47be-bc0d-9647e1c0317d)
 
 이들은 test를 위해 실제 텍스트를 입력했을 때 얻은 결과로 흐리지만 꽤 정확한 이미지가 나온 것을 볼 수 있다. 
-"The woman is young and has blond hair, and arched eyebrows." 에 대한 출력 결과이다
+"The woman is young and has blond hair, and arched eyebrows." 에 대한 출력 결과이다.
+
 ![image](https://github.com/sawadi807/MyML/assets/139100722/47658c8d-8e26-4a26-a54f-47065e6c04c5)![image](https://github.com/sawadi807/MyML/assets/139100722/f82fef68-fb7b-4ea0-89f3-2bc52aac3109)
 
 
