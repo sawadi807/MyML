@@ -21,15 +21,6 @@ cos_sim = torch.nn.CosineSimilarity(dim=0)
 
 
 def contrastive_loss_G(fake_image, clip_model, txt_embedding, device, tau=0.5):
-    
-    ################# Problem 4-(c). #################
-    '''
-    TODO: 
-        (1) Calculate clip image embedding using clip_model and normed_img. You must know how to use 'clip' Library. 
-        (2) Normalize image embedding (Hint: use some function in train_utils.py)
-            and save to image_features
-        (3) Implement L_ConG equation and save to L_cont. Note that h' in equation is txt_embedding
-    '''
 
     denorm_fake_image = denormalize_image(fake_image)
     reshaped_img = clip_transform(224)(denorm_fake_image)
@@ -42,28 +33,17 @@ def contrastive_loss_G(fake_image, clip_model, txt_embedding, device, tau=0.5):
 
     L_cont = torch.mean(1 - cos_sim(image_features, txt_embedding).clamp(min=0) / tau)
 
-
-    ################# Problem 4-(c). #################
     return L_cont
 
 
 
 
 def contrastive_loss_D(g_out_align, txt_embedding, tau=0.5):
-    ################# Problem 4-(d). #################
-    '''
-    TODO: Normalize embedding extracted from align_disciminator 
-         (Hint: use 'normalize' function in train_utils.py) and save to model_features
-        Note that f_s(x_j) in equation is g_out_align and h' is txt_embedding
-    '''
 
     model_features = normalize(g_out_align)
-
-
+    
     L_cont = torch.mean(1 - cos_sim(model_features, txt_embedding).clamp(min=0) / tau)
 
-
-    ################# Problem 4-(d). #################
     return L_cont
 
 
@@ -78,17 +58,6 @@ def D_loss(real_image, fake_image, model_D, loss_fn,
     
     loss_d_comp = {}
 
-    
-    ################# Problem 4-(b). #################
-    '''
-    TODO: 
-        (1) Calculate unconditional loss with fake images and save to loss_g_comp['d_loss_fake_uncond']
-        (2) Calculate unconditional loss with real images and save to loss_g_comp['d_loss_real_uncond']
-        (3) Calculate conditional loss with fake images and save to loss_g_comp['d_loss_fake_cond']
-        (4) Calculate conditional loss with real images and save to loss_g_comp['d_loss_real_cond']
-        (5) With (3) and (4), calculate align_out from align discriminator to calculate contrastive loss
-        Use loss_fn to calculate loss
-    '''
     
     if use_uncond_loss:
         fake_output, d_out_align_fake = model_D(fake_image)
@@ -118,15 +87,6 @@ def G_loss(fake_image, model_D, loss_fn,
     
     loss_g_comp = {}
 
-    
-    ################# Problem 4-(a). #################
-    '''
-    TODO: 
-        (1) Calculate unconditional loss and save to loss_g_comp['g_loss_uncond']
-        (2) Calculate conditional loss and save to loss_g_comp['g_loss_cond']  
-        (3) With (2), calculate align_out from align discriminator to calculate contrastive loss
-        Use loss_fn to calculate loss
-    '''
 
     if use_uncond_loss:
         fake_output, g_out_align = model_D(fake_image)
@@ -134,9 +94,6 @@ def G_loss(fake_image, model_D, loss_fn,
     else:
         fake_output, g_out_align = model_D(fake_image, align=True)
         loss_g_comp['g_loss_cond'] = loss_fn(fake_output, g_label)
-
-    
-    ################# Problem 4-(a). #################
 
     g_loss = gather_all(loss_g_comp)
     return g_loss
@@ -163,31 +120,12 @@ def train_step(train_loader, noise_dim, device, model_G, model_D_lst, optim_g, o
         txt_feature = txt_feature.to(device)
 
 
-        
-        ################# [Optional]] Problem 4-(f). #################
-        '''
-        TODO: pseudo text feature generation for Language-free training
-        Generate the pseudo text feature using the idea of 'fixed perturbations' of LAFITE (https://arxiv.org/pdf/2111.13792.pdf).
-        Note that img_feature and txt_feature is already normalized.
-        '''
-
         pseudo_text_feature = txt_feature + lam * torch.randn_like(txt_feature).to(device)
-        ################# Problem 4-(f). #################
 
-        
-
-        ################# Problem 4-(e). #################
-        '''
-        TODO: Generate label for loss calculation
-        (1) Use torch.zeros or torch.ones
-        (2) Cast dtype into torch.float32
-        (3) Move the tensor into device
-        '''
 
         d_fake_label = torch.zeros(BATCH_SIZE, 1, dtype=torch.float32).to(device)
         d_real_label = torch.ones(BATCH_SIZE, 1, dtype=torch.float32).to(device)
         g_label = torch.ones(BATCH_SIZE, 1, dtype=torch.float32).to(device)
-        ################# Problem 4-(e). #################
 
 
 
