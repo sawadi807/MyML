@@ -7,10 +7,14 @@
 프로젝트의 모델 구현은 나, 소켓 프로그래밍은 팀원이 맡게 되었다.
 
 
+
+
 1) 프로젝트 설계 배경 및 내용
 
 피부암은 일반인이 보기에 정상적인 점과 구분이 쉽지 않다. 그래서 피부암은 방치되어 조기 진단을 놓치는 경우가 많다. 그렇다고 피부암이 의심될 때마다 병원에 가는 것은 환자의 입장에서는 소모적인 일이다. 따라서 mobile device로 간편하게 피부암을 진단할 수 있는 피부암 진단 인공지능이 필요하다.
 한편, 복잡한 DNN은 스마트폰과 같은 mobile device에서 수행하기에 computing power가 부족할 수 있다. 그래서 일반적으로 mobile devcie에서 input data를 server로 전송하여 server에서 DNN 추론을 수행하는 클라우드 컴퓨팅 방법이 사용된다. 하지만 피부암 진단 DNN과 같은 의료 분야의 인공지능은 input data로 환자의 개인정보나 환부의 사진이 요구되기 때문에 전통적인 클라우드 컴퓨팅 방법은 data 유출 문제에 취약할 수 있다. 따라서 전통적인 cloud의 보안적 한계를 극복하는 피부암 진단 DNN 모델의 구현이 필요하다.
+
+
 
 
 
@@ -39,6 +43,8 @@
   - client의 추론 결과인 intermediate data를 sever로 전송하기 위해서 TCP/IP 방식으로 통신하는 socket_client_SC.py와 socket_server_SC.py를 구현했다.
   - socket_client_SC.py 코드는 sever와 연결하여 serialize 된 다차원 numpy array를 전송한다.
   - socket_server_SC.py 코드는 client의 TCP 연결을 수용하여 serialized data를 받아 unserialize하여 본래의 numpy array로 복구한다.
+
+
 
 
 
