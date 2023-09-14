@@ -52,7 +52,8 @@
 
 전체적인 모델 구조는 아래와 같다. 이 과정에서 InceptionResNetV2의 중간 부분을 분할하여 head와 tail로 분리해 split computing을 진행하였다.
 
-![image](https://github.com/sawadi807/MyML/assets/139100722/9b5975b0-4624-483b-95bd-6c60f14bde19)
+![image](https://github.com/sawadi807/MyML/assets/139100722/fb1d4fae-cf81-4914-a6db-9142937de16e)
+
 
 
 4) 결론
@@ -64,7 +65,8 @@
 
 모델 결과는 아래와 같다.
 
-![image](https://github.com/sawadi807/MyML/assets/139100722/840bb08e-47b1-4206-8985-8969fb8e95d2)
+![image](https://github.com/sawadi807/MyML/assets/139100722/cae529ed-eabe-4b74-99c9-9fb568c71331)
+
 
 
 5) 추가 사항 (모델2.py)
