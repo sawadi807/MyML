@@ -8,4 +8,4 @@
 
 (2) Text-to-image: 텍스트 이미지 변환 모델
 
-(3) Force-Field: 반도체 소재 시뮬레이션을 위한 Machine Learning Force Field
+(3) 서울시 평균 기온 예측 해커톤
