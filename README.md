@@ -78,10 +78,15 @@ Prior_layer까지 거쳐 만들어진 output은 앞서 정의한 조건 여부�
 
 train.py코드는 GAN을 활용해서 이미지를 생성할 수 있는 모델을 학습할 수 있도록 구현한 코드이다.
 ●contrastive_loss_G에서는 생성된 가짜 이미지와 텍스트 임베딩 사이의 Contrastive Loss를 계산한다. 정규화된 형태의 이미지를 224로 바꾸고 원하는 형태로 재구성한 후에 clip모델에 입력할 수 있는 형태로 전처리한다. 그 후에 clip모델을 사용해서 이미지를 임베딩 벡터로 변환 및 정규화하고 두 벡터 사이의 코사인 유사성을 계산한 후에 Contrastive loss를 계산한다.
+
 ●contrastive_loss_D에서는 Discriminator가 생성된 이미지와 텍스트 임베딩 간의 Contrastive loss를 계산한다. 생성된 이미지에서 특징을 뽑아낸 후에 정규화하고 그것을 model_features에 저장한다. 그 후에 이미지의 특징과 텍스트 임베딩 사이에서의 코사인 유사성을 계산하고 contrastive loss를 계산한다.
+
 ●D_loss에서는 Discriminator의 Loss를 계산한다. 먼저 생성된 가짜 이미지와 실제 이미지의 Discriminator 출력을 계산한 후에 미리 정의되어 있는 레이블을 활용해서 가짜 이미지와 실제 이미지의 손실을 계산한다.
+
 ●G_loss에서는 Generator의 Loss를 계산한다. 먼저 생성된 가짜 이미지와 해당하는 Discriminator의 출력을 계산한 후에 미리 정의되어 있는 레이블을 사용해서 각각의 손실을 계산한다. 
+
 ●train_step함수는 학습 단계를 수행하는 함수이다. 먼저 데이터 로더에서 배치를 가져와서 실제 이미지들을 디바이스로 옮긴다. Discriminator와 Generator를 최적화하고 각각의 이미지와 레이블의 Discriminator와 Generator의 loss를 계산한다. Train_loader에서 배치 단위로 데이터를 불러오는데 실제 이미지와 이미지의 특징과 텍스트의 특징이 이 배치에 포함되어 있다. 현재의 스테이지의 Discriminator를 업데이트하고 실제 이미지와 가짜 이미지의 손실을 계산한 후에 손실로부터 Discriminator를 업데이트한다. 이런 방식을 통해서 단계별로 Discriminator와 Generator의 loss를 계산하고 epoch마다 loss와 이미지를 출력한다. 
+
 ●train은 실제로 학습을 진행하는 함수이다. train_loader에서 배치 단위로 데이터를 불러오는데 실제 이미지와 이미지의 특징, 텍스트의 특징이 이 배치에 포함되어 있다. 각 배치를 활용해서 Discriminator는 실제 이미지와 생성된 이미지를 구별하는 것을 학습하고 Generator는 생성된 이미지가 실제 이미지와 비슷하게 보일 수 있도록 한다. 학습된 Discriminator와 Generator의 출력을 바탕으로 각 epoch마다 loss를 출력하고 이미지를 저장한다. 학습이 끝난 후에는 Discriminator와 Generator의 loss값을 각각 출력한다. 
 
 
